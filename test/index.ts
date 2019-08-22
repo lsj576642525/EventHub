@@ -1,7 +1,8 @@
 import EventHub from "../src/index";
 
+type TestCase = (message: string) => void;
 // 测试监听并且触发
-const test1 = message => {
+const test1: TestCase = message => {
   const eventHub = new EventHub(); // EventHub 可以创建对象
   let called = false;
   // 监听
@@ -15,7 +16,7 @@ const test1 = message => {
 };
 
 // 测试触发之前断开监听
-const test2 = message => {
+const test2: TestCase = message => {
   const eventHub = new EventHub();
   let called2 = false;
   const fn2 = () => {

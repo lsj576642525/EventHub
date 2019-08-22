@@ -1,13 +1,13 @@
 class EventHub {
-  private cache = {};
+  private cache: { [key: string]: Array<(data: unknown) => void> } = {};
 
-  on(eventName: string, fn: (data: string) => void) {
+  on(eventName: string, fn: (data: unknown) => void) {
     // 把 fn 推进 this.cache[eventName] 数组里
     this.cache[eventName] = this.cache[eventName] || [];
     this.cache[eventName].push(fn);
   }
 
-  emit(eventName: string, data?: string) {
+  emit(eventName: string, data?: unknown) {
     // 把 this.cache[eventName] 数组里的 fn 全部依次调用
     if (this.cache[eventName] === undefined) return;
     this.cache[eventName].forEach(fn => fn(data));
